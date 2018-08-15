@@ -1,6 +1,8 @@
 # Code
 src/Sifter/bin/
 src/Sifter/obj/
+tests/Sifter.PerformanceTests/bin/
+tests/Sifter.PerformanceTests/obj/
 tests/Sifter.Tests/bin/
 tests/Sifter.Tests/obj/
 

@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472</TargetFrameworks>
+    <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
+
+    <AssemblyName>Sifter.PerformanceTests</AssemblyName>
+    <Title>Sifter.PerformanceTests</Title>
+    <Description>Sifter Performance Suite</Description>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>bin\Release\netcoreapp2.1\Sifter.PerformanceTests.xml</DocumentationFile>
+    <NoWarn>1701;1702;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netcoreapp2.1\Sifter.PerformanceTests.xml</DocumentationFile>
+    <NoWarn>1701;1702;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="corpus.csv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.0" />
+    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.11.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta008" />
+    <ProjectReference Include="..\..\src\Sifter\Sifter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" Link="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="corpus.csv" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Sifter.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+</Project>

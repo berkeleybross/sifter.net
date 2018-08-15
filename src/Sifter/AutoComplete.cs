@@ -8,6 +8,9 @@ namespace Sifter
     using System.Globalization;
     using System.Linq;
 
+    /// <summary>
+    /// Scores possible matches to find the best possible suggestion.
+    /// </summary>
     public class AutoComplete
     {
         private readonly IReadOnlyCollection<SuggestionBuilder> values;
@@ -112,7 +115,7 @@ namespace Sifter
                     boost = 0.25;
                 }
 
-                return (term.Length / (double) this.Value.Length) + boost;
+                return (term.Length / (double)this.Value.Length) + boost;
             }
         }
     }
