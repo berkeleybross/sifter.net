@@ -1,0 +1,15 @@
+# Code
+src/Sifter/bin/
+src/Sifter/obj/
+tests/Sifter.Tests/bin/
+tests/Sifter.Tests/obj/
+
+# Standard VS folders
+**/packages/*
+!**/packages/build/
+
+.vs/
+**/*.user
+
+# Tools
+_NCrunch_*/

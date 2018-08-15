@@ -1,0 +1,1 @@
+This project was inspired by [sifter.js](https://github.com/brianreavis/sifter.js/), Copyright © 2013–2015 [Brian Reavis](https://twitter.com/brianreavis) & [Contributors](https://github.com/brianreavis/sifter.js/graphs/contributors) under the Apache 2 License. [https://github.com/brianreavis/sifter.js/tree/c94d879f5e2fec9ecaec6387473f28c07d902678]
