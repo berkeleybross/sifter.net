@@ -17,7 +17,7 @@ namespace Sifter.Tests
             public void Returns_empty_set_when_there_are_no_suggestions()
             {
                 // Arrange
-                var sut = new AutoComplete(Enumerable.Empty<string>());
+                var sut = MakeSut(Enumerable.Empty<string>());
 
                 // Act
                 var result = sut.GetSuggestions("term", 5);
@@ -34,7 +34,7 @@ namespace Sifter.Tests
             public void Returns_all_values_when_term_is_empty(string term)
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foo", "bar", null, string.Empty });
+                var sut = MakeSut(new[] { "foo", "bar", null, string.Empty });
 
                 // Act
                 var result = sut.GetSuggestions(term, 5);
@@ -47,7 +47,7 @@ namespace Sifter.Tests
             public void Returns_empty_set_when_term_matches_nothing()
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foo", "bar", null, string.Empty });
+                var sut = MakeSut(new[] { "foo", "bar", null, string.Empty });
 
                 // Act
                 var result = sut.GetSuggestions("term", 5);
@@ -60,7 +60,7 @@ namespace Sifter.Tests
             public void Orders_values_by_relevance()
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "infoof", "infoofoofoof" });
+                var sut = MakeSut(new[] { "infoof", "infoofoofoof" });
 
                 // Act
                 var result = sut.GetSuggestions("foo", 5);
@@ -73,7 +73,7 @@ namespace Sifter.Tests
             public void Limits_matches()
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foo", "foo", "foo", "foo", "foo", "foo" });
+                var sut = MakeSut(new[] { "foo", "foo", "foo", "foo", "foo", "foo" });
 
                 // Act
                 var result = sut.GetSuggestions("foo", 5);
@@ -90,7 +90,7 @@ namespace Sifter.Tests
             public void Returns_empty_set_when_there_are_no_suggestions()
             {
                 // Arrange
-                var sut = new AutoComplete(Enumerable.Empty<string>());
+                var sut = MakeSut(Enumerable.Empty<string>());
 
                 // Act
                 var result = sut.Score("term");
@@ -107,7 +107,7 @@ namespace Sifter.Tests
             public void Scores_all_values_equally_when_there_is_no_term(string term)
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foo", "bar", null, string.Empty });
+                var sut = MakeSut(new[] { "foo", "bar", null, string.Empty });
 
                 // Act
                 var result = sut.Score(term);
@@ -127,7 +127,7 @@ namespace Sifter.Tests
             public void Scores_value_as_zero_when_it_doesnt_match_term(string value)
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { value });
+                var sut = MakeSut(new[] { value });
 
                 // Act
                 var result = sut.Score("term");
@@ -143,7 +143,7 @@ namespace Sifter.Tests
             public void Returns_exact_match(string term)
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foo" });
+                var sut = MakeSut(new[] { "foo" });
 
                 // Act
                 var result = sut.Score(term);
@@ -156,7 +156,7 @@ namespace Sifter.Tests
             public void Returns_values_which_contain_term()
             {
                 // Arrange
-                var sut = new AutoComplete(new[]
+                var sut = MakeSut(new[]
                 {
                     "foo",
                     "foobar",
@@ -183,7 +183,7 @@ namespace Sifter.Tests
             public void Boosts_relevance_for_matches_at_start_of_string()
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foob", "bfoo" });
+                var sut = MakeSut(new[] { "foob", "bfoo" });
 
                 // Act
                 var result = sut.Score("foo").ToList();
@@ -196,7 +196,7 @@ namespace Sifter.Tests
             public void Boosts_relevance_for_matches_at_start_of_word()
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "bar foob", "bar bfoo" });
+                var sut = MakeSut(new[] { "bar foob", "bar bfoo" });
 
                 // Act
                 var result = sut.Score("foo").ToList();
@@ -209,7 +209,7 @@ namespace Sifter.Tests
             public void Only_matches_all_words_in_term()
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foo", "bar", "foo bar", "bar foo", "foo bar baz" });
+                var sut = MakeSut(new[] { "foo", "bar", "foo bar", "bar foo", "foo bar baz" });
 
                 // Act
                 var result = sut.Score("foo bar").ToList();
@@ -232,7 +232,7 @@ namespace Sifter.Tests
             public void Matches_words_in_any_order()
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foo bar", "bar foo" });
+                var sut = MakeSut(new[] { "foo bar", "bar foo" });
 
                 // Act
                 var result = sut.Score("foo bar").ToList();
@@ -256,7 +256,7 @@ namespace Sifter.Tests
             public void Ignores_extra_whitespace_in_term(string term)
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { "foo bar" });
+                var sut = MakeSut(new[] { "foo bar" });
 
                 // Act
                 var result = sut.Score(term).ToList();
@@ -312,7 +312,7 @@ namespace Sifter.Tests
             public void Ignores_diacritics(string value, string term)
             {
                 // Arrange
-                var sut = new AutoComplete(new[] { value });
+                var sut = MakeSut(new[] { value });
 
                 // Act
                 var result = sut.Score(term).ToList();
@@ -357,6 +357,11 @@ namespace Sifter.Tests
 
                 return characters;
             }
+        }
+
+        private static AutoComplete<string> MakeSut(IEnumerable<string> values)
+        {
+            return new AutoComplete<string>(values, v => v);
         }
     }
 }

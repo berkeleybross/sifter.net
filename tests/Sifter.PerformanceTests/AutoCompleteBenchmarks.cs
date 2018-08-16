@@ -18,7 +18,7 @@ namespace Sifter.PerformanceTests
     [Config(typeof(Config))]
     public class AutoCompleteBenchmarks
     {
-        private AutoComplete corpus;
+        private AutoComplete<string> sut;
 
         [GlobalSetup]
         public void Setup()
@@ -33,25 +33,25 @@ namespace Sifter.PerformanceTests
                 }
             }
 
-            this.corpus = new AutoComplete(text.Split());
+            this.sut = new AutoComplete<string>(text.Split(), v => v);
         }
 
         [Benchmark]
-        public void NoQuery() => this.corpus.Score(null);
+        public void NoQuery() => this.sut.Score(null);
 
         [Benchmark]
         [Arguments("A")]
         [Arguments("ru")]
         [Arguments("mia")]
         [Arguments("famous somewhat")]
-        public void ScoreOneField(string term) => this.corpus.Score(term);
+        public void ScoreOneField(string term) => this.sut.Score(term);
 
         [Benchmark]
         [Arguments("A")]
         [Arguments("ru")]
         [Arguments("mia")]
         [Arguments("famous somewhat")]
-        public void GetSuggestionsOneField(string term) => this.corpus.GetSuggestions(term, 5);
+        public void GetSuggestionsOneField(string term) => this.sut.GetSuggestions(term, 5);
 
         private class Config
             : ManualConfig
