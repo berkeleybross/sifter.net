@@ -15,3 +15,5 @@ tests/Sifter.Tests/obj/
 
 # Tools
 _NCrunch_*/
+tools/*
+!tools/packages.config
