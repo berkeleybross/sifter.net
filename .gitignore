@@ -1,4 +1,5 @@
 # Code
+artifacts/
 src/Sifter/bin/
 src/Sifter/obj/
 tests/Sifter.PerformanceTests/bin/
