@@ -4,6 +4,7 @@
 namespace Sifter.PerformanceTests
 {
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using BenchmarkDotNet.Attributes;
     using BenchmarkDotNet.Configs;
@@ -37,21 +38,21 @@ namespace Sifter.PerformanceTests
         }
 
         [Benchmark]
-        public void NoQuery() => this.sut.Score(null);
+        public void NoQuery() => this.sut.Score(null).ToList();
 
         [Benchmark]
         [Arguments("A")]
         [Arguments("ru")]
         [Arguments("mia")]
         [Arguments("famous somewhat")]
-        public void ScoreOneField(string term) => this.sut.Score(term);
+        public void ScoreOneField(string term) => this.sut.Score(term).ToList();
 
         [Benchmark]
         [Arguments("A")]
         [Arguments("ru")]
         [Arguments("mia")]
         [Arguments("famous somewhat")]
-        public void GetSuggestionsOneField(string term) => this.sut.GetSuggestions(term, 5);
+        public void GetSuggestionsOneField(string term) => this.sut.GetSuggestions(term, 5).ToList();
 
         private class Config
             : ManualConfig
